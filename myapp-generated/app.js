@@ -7,8 +7,10 @@ var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var huehueRouter = require('./routes/huehue');
 
 var app = express();
+console.log(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,10 +26,16 @@ app.use(sassMiddleware({
   indentedSyntax: true, // true = .sass and false = .scss
   sourceMap: true
 }));
+
+// Au niveau des fichiers alakon, on tape sur le dossier /public (remplace la racine)
+//    Possibilité de le déclarer par route
+//    https://expressjs.com/fr/starter/static-files.html
+console.log(__dirname);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/huehue', huehueRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
